@@ -1,0 +1,60 @@
+﻿@WorkTimeAPI_HostAddress = http://localhost:5076
+
+GET {{WorkTimeAPI_HostAddress}}/api/tasks
+
+###
+
+
+###
+
+POST {{WorkTimeAPI_HostAddress}}/api/tasks
+Content-Type: application/json
+
+{
+  "taskName":"test"
+}
+
+###
+
+POST {{WorkTimeAPI_HostAddress}}/api/users
+Content-Type: application/json
+
+{
+  //User
+}
+
+###
+
+POST {{WorkTimeAPI_HostAddress}}/login
+Content-Type: application/json
+
+{
+  "login":"asd@asd.pl",
+  "email":"asd",
+  "password":"asd"
+}
+
+###
+
+POST {{WorkTimeAPI_HostAddress}}/api/tasks/10005
+Content-Type: application/json
+
+{
+  //Tasks
+}
+
+###
+
+POST {{WorkTimeAPI_HostAddress}}/api/tasks
+Content-Type: application/json
+
+{
+  //Tasks
+}
+
+###
+
+@id=0
+GET {{WorkTimeAPI_HostAddress}}/api/tasks/10005
+
+###
