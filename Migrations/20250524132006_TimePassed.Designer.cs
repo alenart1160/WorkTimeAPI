@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WorkTimeAPI.Data;
 
@@ -11,9 +12,11 @@ using WorkTimeAPI.Data;
 namespace WorkTimeAPI.Migrations
 {
     [DbContext(typeof(UserContext))]
-    partial class UserContextModelSnapshot : ModelSnapshot
+    [Migration("20250524132006_TimePassed")]
+    partial class TimePassed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -70,6 +73,9 @@ namespace WorkTimeAPI.Migrations
                     b.Property<long>("TaskID")
                         .HasColumnType("bigint");
 
+                    b.Property<float>("TimePassed")
+                        .HasColumnType("real");
+
                     b.Property<long>("UserID")
                         .HasColumnType("bigint");
 
@@ -103,9 +109,6 @@ namespace WorkTimeAPI.Migrations
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
-
-                    b.Property<string>("TimePassed")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");

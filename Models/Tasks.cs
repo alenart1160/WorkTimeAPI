@@ -1,4 +1,6 @@
-﻿namespace WorkTimeAPI.Models
+﻿using System.Numerics;
+
+namespace WorkTimeAPI.Models
 {
     public class Tasks
     {
@@ -9,12 +11,17 @@
         public int Priority { get; set; }
         public string? Description { get; set; }
         public DateTime DateTimeCreated { get; set; }
-        public float TimePassed { get; set; }
-        public string? Status { get; set; }
+        public EnumStatus Status { get; set; }
+        public string? TimePassed { get; set; }
         public bool Completed { get; set; }
 
 
-
+        public enum EnumStatus
+        {
+            InComplete = 0,
+            Active = 1,
+            Completed = 2,
+        }
 
     }
 }

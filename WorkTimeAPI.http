@@ -58,3 +58,12 @@ Content-Type: application/json
 GET {{WorkTimeAPI_HostAddress}}/api/tasks/10005
 
 ###
+
+POST {{WorkTimeAPI_HostAddress}}/api/tasktimers
+Content-Type: application/json
+
+{
+  //TaskTimer
+}
+
+###
