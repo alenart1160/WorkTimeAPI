@@ -99,6 +99,7 @@ namespace WorkTimeAPI.Controllers
 
             return NoContent();
         }
+
         private bool TaskTimerExists(long id)
         {
             return _context.TaskTimers.Any(e => e.Id == id);
