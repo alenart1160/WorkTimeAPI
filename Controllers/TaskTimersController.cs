@@ -30,16 +30,15 @@ namespace WorkTimeAPI.Controllers
 
         // GET: api/TaskTimers/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<TaskTimer>> GetTaskTimer(long id)
+        public async Task<ActionResult<IEnumerable<TaskTimer>>> GetTasksTimerList(long id)
         {
-            var taskTimer = await _context.TaskTimers.FindAsync(id);
-
-            if (taskTimer == null)
+            var tasks = await _context.TaskTimers.Where(x => x.UserID == id).ToListAsync();
+            if (tasks == null)
             {
                 return NotFound();
             }
 
-            return taskTimer;
+            return await _context.TaskTimers.Where(x => x.TaskID == id).ToListAsync();
         }
 
         // PUT: api/TaskTimers/5
