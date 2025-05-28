@@ -12,7 +12,7 @@ builder.Services.AddOpenApi();
 
 builder.Services.AddDbContext<UserContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 //builder.Services.AddDbContext<TasksContext>(opt=>opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
+builder.Services.AddSingleton<EmailService>();
 
 var app = builder.Build();
 

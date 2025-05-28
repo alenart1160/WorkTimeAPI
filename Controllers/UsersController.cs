@@ -75,6 +75,36 @@ namespace WorkTimeAPI.Controllers
 
             return NoContent();
         }
+        // PUT: api/Users/5
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPut("/reset/{email}")]
+        public async Task<IActionResult> PutNewPassword(string email, User user)
+        {
+            if (email != user.Email)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(user).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!UserEmailExists(email))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
 
         // POST: api/Users
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -161,6 +191,10 @@ namespace WorkTimeAPI.Controllers
         private bool UserExists(long id)
         {
             return _context.Users.Any(e => e.Id == id);
+        }
+        private bool UserEmailExists(string email)
+        {
+            return _context.Users.Any(e => e.Email == email);
         }
     }
 }
