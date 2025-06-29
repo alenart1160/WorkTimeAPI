@@ -29,11 +29,21 @@ POST {{WorkTimeAPI_HostAddress}}/login
 Content-Type: application/json
 
 {
-  "login":"asd@asd.pl",
-  "email":"asd",
-  "password":"asd"
+  "login":"a@a.pl",
+  "email":"a",
+  "password":"a"
 }
 
+
+
+###
+
+Get {{WorkTimeAPI_HostAddress}}/api/tasks
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6ImEiLCJuYmYiOjE3NTExMzA5NTgsImV4cCI6MTc1MTEzNDU1OCwiaWF0IjoxNzUxMTMwOTU4fQ.ZAyx9tDpAHcIq_LPnYUNblbEAI-3dhTaMoklaAYvR70
+
+###
+GET {{WorkTimeAPI_HostAddress}}/api/tasks/10005
 ###
 
 POST {{WorkTimeAPI_HostAddress}}/api/tasks/10005
@@ -42,19 +52,6 @@ Content-Type: application/json
 {
   //Tasks
 }
-
-###
-
-POST {{WorkTimeAPI_HostAddress}}/api/tasks
-Content-Type: application/json
-
-{
-  //Tasks
-}
-
-###
-GET {{WorkTimeAPI_HostAddress}}/api/tasks/10005
-
 ###
 
 POST {{WorkTimeAPI_HostAddress}}/api/tasktimers
@@ -113,5 +110,3 @@ Content-Type: application/json
   "Body":"",
   "Subject":""
 }
-
-###

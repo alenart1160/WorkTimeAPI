@@ -1,11 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Azure.Core;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System;
+using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
+using System.Security.Claims;
+using System.Text;
+using System.Threading.Tasks;
 using WorkTimeAPI.Data;
 using WorkTimeAPI.Model;
 
@@ -18,7 +23,7 @@ namespace WorkTimeAPI.Controllers
     public class UsersController : ControllerBase
     {
         private readonly UserContext _context;
-
+        private readonly string jwtKey = "a_very_secure_and_long_key_1234567890!";
         public UsersController(UserContext context)
         {
             _context = context;
@@ -159,7 +164,23 @@ namespace WorkTimeAPI.Controllers
                 }
                 if (userFinded.Id > 0)
                 {
-                    return Ok(userFinded.Id);
+                    var tokenHandler = new JwtSecurityTokenHandler();
+                    var key = Encoding.UTF8.GetBytes(jwtKey);
+                    var tokenDescriptor = new SecurityTokenDescriptor
+                    {
+                        Subject = new ClaimsIdentity(new Claim[]
+                        {
+                    new Claim(ClaimTypes.Name, user.Email)
+                        }),
+                        Expires = DateTime.UtcNow.AddHours(1),
+                        SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                    };
+
+                    var token = tokenHandler.CreateToken(tokenDescriptor);
+                    var jwt = tokenHandler.WriteToken(token);
+
+                    return Ok(new { token = jwt, id = userFinded.Id });
+                   // return Ok(userFinded.Id);
                 }
                 else
                 {
