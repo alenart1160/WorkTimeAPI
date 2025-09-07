@@ -30,7 +30,7 @@ namespace WorkTimeAPI.Controllers
             return await _context.TaskTimers.ToListAsync();
         }
 
-        // GET: api/TaskTimers/5
+        // GET: api/TaskTimers/{id}
         [HttpGet("{id}")]
         public async Task<ActionResult<IEnumerable<TaskTimer>>> GetTasksTimerList(long id)
         {
@@ -43,8 +43,7 @@ namespace WorkTimeAPI.Controllers
             return await _context.TaskTimers.Where(x => x.TaskID == id).ToListAsync();
         }
 
-        // PUT: api/TaskTimers/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        // PUT: api/TaskTimers/{id}
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTaskTimer(long id, TaskTimer taskTimer)
         {
@@ -75,7 +74,6 @@ namespace WorkTimeAPI.Controllers
         }
 
         // POST: api/TaskTimers
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<TaskTimer>> PostTaskTimer(TaskTimer taskTimer)
         {
@@ -85,7 +83,7 @@ namespace WorkTimeAPI.Controllers
             return CreatedAtAction("GetTaskTimer", new { id = taskTimer.Id }, taskTimer);
         }
 
-        // DELETE: api/TaskTimers/5
+        // DELETE: api/TaskTimers/{id}
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTaskTimer(long id)
         {

@@ -30,7 +30,7 @@ namespace WorkTimeAPI.Controllers
             return await _context.Tasks.ToListAsync();
         }
 
-        // GET: api/Tasks/User/5
+        // GET: api/Tasks/User/{id}
         [HttpGet("user/{id}")]
         public async Task<ActionResult<IEnumerable<Tasks>>> GetUserTasks(long id)
         {

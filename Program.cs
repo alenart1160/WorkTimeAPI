@@ -6,8 +6,11 @@ using WorkTimeAPI.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// klucz do podpisywania tokenów (powinien byæ w konfiguracji, nie na sztywno)
-var key = "a_very_secure_and_long_key_1234567890!";
+var key = builder.Configuration["Jwt:Key"];
+if (string.IsNullOrEmpty(key))
+{
+    throw new InvalidOperationException("Brak klucza JWT w konfiguracji (Jwt:Key).");
+}
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

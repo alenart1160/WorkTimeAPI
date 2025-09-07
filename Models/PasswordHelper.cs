@@ -5,7 +5,6 @@ namespace WorkTimeAPI.Models
 {
     public interface IPasswordHelper
     {
-        string HashPassword(User user, string password);
         bool VerifyPassword(User user, string hashedPassword, string password);
     }
 
@@ -22,10 +21,6 @@ namespace WorkTimeAPI.Models
             return _passwordHasher.HashPassword(user, password);
         }
 
-        public string HashPassword(User user, string password)
-        {
-            throw new NotImplementedException();
-        }
 
         public bool VerifyPassword(User user, string hashedPassword, string password)
         {

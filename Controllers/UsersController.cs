@@ -23,10 +23,13 @@ namespace WorkTimeAPI.Controllers
     public class UsersController : ControllerBase
     {
         private readonly UserContext _context;
-        private readonly string jwtKey = "a_very_secure_and_long_key_1234567890!";
-        public UsersController(UserContext context)
+
+        private readonly string? jwtKey;
+
+        public UsersController(UserContext context, IConfiguration configuration) : base()
         {
             _context = context;
+            jwtKey = configuration["Jwt:Key"];
         }
 
         // GET: api/Users
@@ -124,7 +127,7 @@ namespace WorkTimeAPI.Controllers
 
                 return CreatedAtAction("GetUser", new { id = user.Id }, user);
             }
-            return NotFound();
+            return Conflict();
 
 
         }
@@ -153,6 +156,10 @@ namespace WorkTimeAPI.Controllers
             {
                 return NotFound();
             }
+            if (string.IsNullOrEmpty(jwtKey))
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Brak klucza JWT w konfiguracji.");
+            }
             if (result == PasswordVerificationResult.Success && checkUserExist != null)
             {
 
@@ -162,6 +169,7 @@ namespace WorkTimeAPI.Controllers
                 {
                     return NotFound();
                 }
+
                 if (userFinded.Id > 0)
                 {
                     var tokenHandler = new JwtSecurityTokenHandler();
@@ -180,7 +188,6 @@ namespace WorkTimeAPI.Controllers
                     var jwt = tokenHandler.WriteToken(token);
 
                     return Ok(new { token = jwt, id = userFinded.Id });
-                   // return Ok(userFinded.Id);
                 }
                 else
                 {

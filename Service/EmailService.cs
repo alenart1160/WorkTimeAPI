@@ -11,7 +11,6 @@ public class EmailService
 
     public async Task SendEmailAsync(EmailRequest request)
     {
-
         string Password = Guid.NewGuid().ToString("d").Substring(1, 8);
 
         User userModel = new User()
@@ -22,10 +21,7 @@ public class EmailService
 
         };
 
-        //TODO Wysy³anei has³a do bazy
         userModel.Password = passwordHasher.HashPassword(userModel, Password);
-
-        
 
         var smtpClient = new SmtpClient("smtp.gmail.com")
         {
